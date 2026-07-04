@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: /packages/core
+    schedule:
+      interval: weekly
+    versioning-strategy: increase-if-necessary
+    groups:
+      elysia:
+        patterns:
+          - "elysia"
+          - "@elysia/*"

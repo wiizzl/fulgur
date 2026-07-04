@@ -1,0 +1,55 @@
+{
+  "name": "fulgur",
+  "version": "0.0.0",
+  "description": "Vite-native fullstack integration layer powered by Bun, Vite and Elysia.",
+  "homepage": "https://wiizzl.github.io/fulgur",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "directory": "packages/core",
+    "url": "git+https://github.com/wiizzl/fulgur.git"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    "./server": "./src/server.ts",
+    "./client": "./src/client.ts",
+    "./vite": "./src/plugin/index.ts",
+    "./start": "./src/runner/prod.ts",
+    "./vercel": "./src/runner/vercel.ts"
+  },
+  "scripts": {
+    "prepack": "cp ../../README.md ./README.md",
+    "typecheck": "bun --bun tsc --noEmit"
+  },
+  "author": {
+    "name": "Pierre Houllière",
+    "email": "hi@houlliere.com",
+    "url": "https://github.com/wiizzl"
+  },
+  "bugs": {
+    "url": "https://github.com/wiizzl/fulgur/issues"
+  },
+  "keywords": [
+    "vite",
+    "elysia",
+    "bun",
+    "framework",
+    "rpc",
+    "fullstack"
+  ],
+  "dependencies": {
+    "@elysia/static": "^1.4.11",
+    "@elysia/eden": "^1.4.10",
+    "elysia": "^1.4.29"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "vite": ">=8"
+  }
+}

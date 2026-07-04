@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "workspaces": [
+    "docs",
+    "packages/*"
+  ],
+  "scripts": {
+    "format": "bun --bun biome format --write",
+    "lint": "bun --bun biome lint",
+    "typecheck": "bun run --workspaces --if-present typecheck",
+    "test": "bun run --workspaces --if-present test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.2",
+    "@changesets/cli": "^2.31.0"
+  }
+}

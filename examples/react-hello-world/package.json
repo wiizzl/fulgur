@@ -1,0 +1,26 @@
+{
+  "name": "react-hello-world",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun --bun vite",
+    "build": "bun --bun vite build",
+    "start": "bun .fulgur/start.ts"
+  },
+  "imports": {
+    "#router": "./.fulgur/router.ts"
+  },
+  "dependencies": {
+    "fulgur": "link:fulgur",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.14",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.3"
+  }
+}
