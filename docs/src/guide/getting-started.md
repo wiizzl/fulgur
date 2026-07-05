@@ -2,8 +2,7 @@
 
 ## Prerequisites
 
-- [Bun](https://bun.sh) v1.3+
-- [Vite](https://vite.dev) v8+
+- [Bun](https://bun.sh)
 
 ## Under the hood
 
