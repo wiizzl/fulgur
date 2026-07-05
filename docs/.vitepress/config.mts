@@ -15,7 +15,7 @@ export default defineConfig({
 
   themeConfig: {
     editLink: {
-      pattern: "https://github.com/wiizzl/fulgur/edit/main/docs/pages/:path",
+      pattern: "https://github.com/wiizzl/fulgur/edit/main/docs/src/:path",
     },
 
     logo: "/logo.png",
