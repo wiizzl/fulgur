@@ -10,7 +10,6 @@ export default defineConfig({
   sitemap: { hostname: "https://wiizzl.github.io/fulgur/" },
   head: [["link", { rel: "icon", href: "/fulgur/logo.png" }]],
 
-  mpa: true,
   cleanUrls: true,
   lastUpdated: true,
 
