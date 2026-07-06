@@ -11,7 +11,7 @@
     "#router": "./.fulgur/router.ts"
   },
   "dependencies": {
-    "fulgur": "link:fulgur",
+    "fulgur": "latest",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
