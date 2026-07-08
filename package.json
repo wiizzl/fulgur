@@ -1,6 +1,6 @@
 {
   "name": "fulgur",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Vite-native fullstack integration layer powered by Bun, Vite and Elysia.",
   "homepage": "https://wiizzl.github.io/fulgur",
   "license": "MIT",
