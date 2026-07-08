@@ -3,7 +3,7 @@ import { Elysia } from "elysia";
 import { logError, logWarning } from "#/shared/logger";
 import { scanServerFiles } from "#/shared/scan";
 
-export async function loadRoutes(root: string) {
+export async function loadRoutes(root: string): Promise<Elysia> {
   const router = new Elysia();
 
   for await (const file of scanServerFiles(root)) {

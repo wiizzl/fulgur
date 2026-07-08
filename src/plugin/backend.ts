@@ -1,12 +1,12 @@
 import { spawn, type ChildProcess } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
 import { waitForBackend } from "#/plugin/health";
 
 import { ENV_VARS } from "#/shared/constants";
 import { log, logError, logServer } from "#/shared/logger";
 
-const runnerPath = fileURLToPath(import.meta.resolve("../runner/dev.ts"));
+const runnerPath = join(import.meta.dirname, "../runner/dev.js");
 
 export interface BackendConfig {
   port: number;
@@ -18,7 +18,7 @@ export class BackendManager {
   private process: ChildProcess | null = null;
   private restartTimer: ReturnType<typeof setTimeout> | null = null;
 
-  async start(config: BackendConfig) {
+  async start(config: BackendConfig): Promise<boolean> {
     this.kill();
 
     log(`Starting backend on port ${config.port}...`);
@@ -54,7 +54,7 @@ export class BackendManager {
     return ready;
   }
 
-  kill() {
+  kill(): void {
     if (this.restartTimer) {
       clearTimeout(this.restartTimer);
       this.restartTimer = null;
@@ -73,7 +73,7 @@ export class BackendManager {
     }
   }
 
-  debouncedRestart(config: BackendConfig, delay = 200) {
+  debouncedRestart(config: BackendConfig, delay = 200): void {
     if (this.restartTimer) {
       clearTimeout(this.restartTimer);
     }

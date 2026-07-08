@@ -7,14 +7,22 @@ import {
   API_PREFIX,
   DEFAULT_PORT,
   DEFAULT_SERVER_DIR,
-} from "../shared/constants";
-import { logError } from "../shared/logger";
+} from "#/shared/constants";
+import { logError } from "#/shared/logger";
 
+/** Configuration options for the Fulgur Vite plugin. */
 export interface FulgurConfig {
+  /** Port the backend server runs on. Defaults to `3000`. */
   port?: number;
+  /** Directory scanned for `*.server.ts` route files. Defaults to `"."`. */
   serverDir?: string;
 }
 
+/**
+ * Vite plugin that runs an Elysia backend alongside your Vite dev server,
+ * proxies API requests, and generates a fully typed client.
+ * @param userConfig - Optional plugin configuration.
+ */
 export default function fulgur(userConfig: FulgurConfig = {}): Plugin {
   const config = {
     port: userConfig.port ?? DEFAULT_PORT,
@@ -36,7 +44,7 @@ export default function fulgur(userConfig: FulgurConfig = {}): Plugin {
     enforce: "pre",
 
     load(id) {
-      const cleanId = id.split("?")[0];
+      const cleanId = id.split("?")[0] ?? id;
 
       if (cleanId.endsWith(".server.ts")) {
         throw new Error(
@@ -65,7 +73,7 @@ export default function fulgur(userConfig: FulgurConfig = {}): Plugin {
     },
 
     buildStart() {
-      generateClient(viteConfig.root);
+      generateClient(viteConfig.root, config.port, config.serverDir);
     },
 
     async configureServer(server) {
@@ -92,7 +100,7 @@ export default function fulgur(userConfig: FulgurConfig = {}): Plugin {
 
       const onWatcherAll = (_: string, path: string) => {
         if (path.endsWith(".server.ts")) {
-          generateClient(viteConfig.root);
+          generateClient(viteConfig.root, config.port, config.serverDir);
           backend.debouncedRestart(getBackendConfig());
         }
       };

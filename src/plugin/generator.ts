@@ -2,7 +2,6 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-import { ENV_VARS } from "#/shared/constants";
 import { scanServerFilesSync } from "#/shared/scan";
 
 const FULGUR_EXPORT_REGEX = /^\s*export\s+(const|let|var)\s+fulgur\s*=/m;
@@ -31,7 +30,11 @@ export function hasFulgurExport(absolutePath: string): boolean {
   }
 }
 
-export function generateClient(root: string) {
+export function generateClient(
+  root: string,
+  port: number,
+  serverDir: string,
+): void {
   const pluginDir = resolve(root, ".fulgur");
   ensureDir(pluginDir);
 
@@ -60,17 +63,25 @@ export type AppRouter = typeof appRouter;
   writeFileSync(join(pluginDir, "router.ts"), routerTemplate);
 
   const startTemplate = `import { join } from "node:path";
+import { start } from "fulgur/start";
 
-process.env.${ENV_VARS.ROOT} ??= join(import.meta.dir, "..");
-await import("fulgur/start");
+await start({
+  root: join(import.meta.dir, ".."),
+  port: ${port},
+  serverDir: ${JSON.stringify(serverDir)},
+});
 `;
 
   writeFileSync(join(pluginDir, "start.ts"), startTemplate);
 
   const vercelTemplate = `import { join } from "node:path";
+import { createApp } from "fulgur/vercel";
 
-process.env.${ENV_VARS.ROOT} ??= join(import.meta.dir, "..");
-export { default } from "fulgur/vercel";
+export default await createApp({
+  root: join(import.meta.dir, ".."),
+  port: ${port},
+  serverDir: ${JSON.stringify(serverDir)},
+});
 `;
 
   writeFileSync(join(pluginDir, "vercel.ts"), vercelTemplate);

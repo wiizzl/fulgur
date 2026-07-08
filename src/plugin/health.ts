@@ -1,6 +1,9 @@
 import { HEALTH_PATH } from "#/shared/constants";
 
-export async function waitForBackend(port: number, timeout = 10000) {
+export async function waitForBackend(
+  port: number,
+  timeout = 10000,
+): Promise<boolean> {
   const start = Date.now();
   const healthUrl = `http://localhost:${port}${HEALTH_PATH}`;
 

@@ -3,11 +3,11 @@ import { join } from "node:path";
 
 const IGNORED_PREFIXES = ["node_modules/", "dist/", ".fulgur/"];
 
-export function normalizePath(p: string) {
+export function normalizePath(p: string): string {
   return p.replaceAll("\\", "/");
 }
 
-export function isIgnored(filePath: string) {
+export function isIgnored(filePath: string): boolean {
   const normalized = normalizePath(filePath);
 
   return (
@@ -16,7 +16,9 @@ export function isIgnored(filePath: string) {
   );
 }
 
-export async function* scanServerFiles(root: string) {
+export async function* scanServerFiles(
+  root: string,
+): AsyncGenerator<{ relative: string; absolute: string }> {
   const glob = new Glob("**/*.server.ts");
 
   for await (const relativePath of glob.scan(root)) {
@@ -29,7 +31,9 @@ export async function* scanServerFiles(root: string) {
   }
 }
 
-export function scanServerFilesSync(root: string) {
+export function scanServerFilesSync(
+  root: string,
+): { relative: string; absolute: string }[] {
   const glob = new Glob("**/*.server.ts");
 
   return Array.from(glob.scanSync(root))

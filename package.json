@@ -1,17 +1,86 @@
 {
-  "private": true,
-  "workspaces": [
-    "docs",
-    "packages/*"
+  "name": "fulgur",
+  "version": "0.0.0",
+  "description": "Vite-native fullstack integration layer powered by Bun, Vite and Elysia.",
+  "homepage": "https://wiizzl.github.io/fulgur",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiizzl/fulgur.git"
+  },
+  "files": [
+    "dist"
   ],
+  "type": "module",
+  "exports": {
+    "./server": {
+      "import": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      }
+    },
+    "./vite": {
+      "import": {
+        "types": "./dist/plugin/index.d.ts",
+        "default": "./dist/plugin/index.js"
+      }
+    },
+    "./start": {
+      "import": {
+        "types": "./dist/runner/prod.d.ts",
+        "default": "./dist/runner/prod.js"
+      }
+    },
+    "./vercel": {
+      "import": {
+        "types": "./dist/runner/vercel.d.ts",
+        "default": "./dist/runner/vercel.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
+    "build": "bun --bun bunup",
+    "dev": "bun run build --watch",
     "format": "bun --bun biome format --write",
     "lint": "bun --bun biome lint",
-    "typecheck": "bun run --workspaces --if-present typecheck",
-    "test": "bun run --workspaces --if-present test"
+    "typecheck": "bun --bun tsc --noEmit",
+    "test": "bun test --pass-with-no-tests",
+    "release": "bumpp --commit --push --tag"
+  },
+  "author": {
+    "name": "Pierre Houllière",
+    "email": "hi@houlliere.com",
+    "url": "https://github.com/wiizzl"
+  },
+  "bugs": {
+    "url": "https://github.com/wiizzl/fulgur/issues"
+  },
+  "keywords": [
+    "framework",
+    "fullstack",
+    "vite",
+    "rpc",
+    "elysia",
+    "bun"
+  ],
+  "dependencies": {
+    "@elysia/static": "^1.4.11",
+    "@elysia/eden": "^1.4.10",
+    "elysia": "^1.4.29"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
-    "@changesets/cli": "^2.31.0"
+    "@types/bun": "^1.3.14",
+    "bumpp": "^11.1.0",
+    "bunup": "^0.16.32",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.3"
   }
 }

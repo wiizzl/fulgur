@@ -15,7 +15,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 
 ## Project Structure
 
-This is a monorepo using [Bun workspaces](https://bun.sh/docs/install/workspaces). All packages live under [`packages/`](./packages).
+The source code lives in [`src/`](./src). Documentation is in [`docs/`](./docs) as a standalone VitePress project.
 
 ## Development workflow
 
@@ -24,17 +24,12 @@ This is a monorepo using [Bun workspaces](https://bun.sh/docs/install/workspaces
 3. Format your code: `bun run format`
 4. Lint your code: `bun run lint`
 5. Run tests and typecheck: `bun run test && bun run typecheck`
-6. Record a changeset: `bun run changeset`
-7. Commit using [this convention](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md)
-8. Push your branch and open a pull request
+6. Commit using [this convention](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md)
+7. Push your branch and open a pull request
 
 ## Releases
 
-We use [Changesets](https://changesets.dev) to manage versioning. Each edit that needs to be released must include a changeset file describing the impact.
-
-- Run `bun run changeset` and follow the prompts
-- Commit the generated file alongside your changes
-- The CI consumes changesets on merge to `main` and publishes new versions automatically
+Releases are triggered by pushing a `v*` tag. The CI builds the package and publishes to npm automatically.
 
 ## Pull Requests
 
